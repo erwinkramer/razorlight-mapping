@@ -1,0 +1,36 @@
+@using RazorLight
+@using System.Xml.XPath
+
+@inherits TemplatePage<ViewModelDocXml>
+
+<Bank>
+
+    @{
+        var CurrencyNodes = Model.XDocument.XPathSelectElements("/Bank/Currencies/Currency[Symbol != 'IGNORE']");
+        var Name = Model.XDocument.XPathSelectElement("/Bank/Teller/Name")?.Value;
+    }
+
+    <TransformerType>Xml+@Model.FileName</TransformerType>
+    <FirstName>@(Name?.Split(' ').First())</FirstName>
+
+    @{
+        await IncludeAsync("typedPartialMap.cshtml", new ViewModelTeller()
+        {
+            TellerName = Name,
+            TellerId = @Model.XDocument.XPathSelectElement("/Bank/Teller/Id")?.Value
+        });
+    }
+
+    @if (CurrencyNodes.Any())
+    {
+        <Currencies>
+            @foreach (var currencyNode in CurrencyNodes)
+            {
+                <Currency>
+                    <ShortName>@(currencyNode.Element("Name")?.Value ?? "Unknown")</ShortName>
+                    <Value>@(currencyNode.Element("Amount")?.Value ?? "Unknown")</Value>
+                </Currency>
+            }
+        </Currencies>
+    }
+</Bank>

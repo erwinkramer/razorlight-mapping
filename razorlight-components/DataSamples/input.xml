@@ -1,0 +1,30 @@
+<Bank>
+  <Teller>
+    <Id>12345</Id>
+    <Name>John Doe</Name>
+    <City>New York</City>
+  </Teller>
+  <Currencies>
+    <Currency>
+      <Name>USD</Name>
+      <Symbol>$</Symbol>
+      <Amount>1000</Amount>
+    </Currency>
+    <Currency>
+      <Name>EUR</Name>
+      <Symbol>€</Symbol>
+      <Amount>2000</Amount>
+    </Currency>
+    <Currency>
+      <Name>JPY</Name>
+      <Symbol>¥</Symbol>
+      <Amount>3000</Amount>
+    </Currency>
+    <Currency>
+      <Symbol>#</Symbol>
+    </Currency>
+    <Currency>
+      <Symbol>IGNORE</Symbol>
+    </Currency>
+  </Currencies>
+</Bank>

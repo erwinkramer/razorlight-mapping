@@ -1,0 +1,34 @@
+{
+  "Bank": {
+    "Teller": {
+      "Id": "98765",
+      "Name": "John Doe",
+      "City": "New York"
+    },
+    "Currencies": {
+      "Currency": [
+        {
+          "Name": "USD",
+          "Symbol": "$",
+          "Amount": 1000
+        },
+        {
+          "Name": "EUR",
+          "Symbol": "€",
+          "Amount": 2000
+        },
+        {
+          "Name": "JPY",
+          "Symbol": "¥",
+          "Amount": 3000
+        },
+        {
+          "Symbol": "#"
+        },
+        {
+          "Symbol": "IGNORE"
+        }
+      ]
+    }
+  }
+}

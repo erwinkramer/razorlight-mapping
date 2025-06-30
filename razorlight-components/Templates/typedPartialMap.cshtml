@@ -1,0 +1,6 @@
+@using RazorLight
+
+@inherits TemplatePage<ViewModelTeller>
+
+<IBAN>@TemplateHelper.GetIBAN(Model.TellerName)</IBAN>
+<TellerId>@Model.TellerId</TellerId>
