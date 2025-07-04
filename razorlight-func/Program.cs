@@ -12,6 +12,6 @@ builder.Services
     .AddApplicationInsightsTelemetryWorkerService()
     .ConfigureFunctionsApplicationInsights();
 
-builder.Services.AddRazorLightEngine();
+await builder.Services.AddRazorLightEngineWithCompiledMaps(["dynamicXmlMap.cshtml"]);
 
 builder.Build().Run();

@@ -11,13 +11,13 @@ public class xmlMap
 {
     private readonly ILogger<xmlMap> _logger;
     private IRazorLightEngine _engine;
-    private ITemplatePage _compiledXmlMap;
+    private IEnumerable<ITemplatePage> _compiledMaps;
 
-    public xmlMap(ILogger<xmlMap> logger, IRazorLightEngine engine)
+    public xmlMap(ILogger<xmlMap> logger, IRazorLightEngine engine, IEnumerable<ITemplatePage> compiledTemplates)
     {
         _logger = logger;
         _engine = engine;
-        _compiledXmlMap = _engine.CompileTemplateAsync("dynamicXmlMap.cshtml").GetAwaiter().GetResult();
+        _compiledMaps = compiledTemplates;
     }
 
     [Function("xmlMap")]
@@ -27,7 +27,7 @@ public class xmlMap
 
         return new ContentResult
         {
-            Content = await Engine.RunRazorLightXmlMapping(_engine, _compiledXmlMap),
+            Content = await Engine.RunRazorLightXmlMapping(_engine, _compiledMaps.First()),
             ContentType = "application/xml",
             StatusCode = 200
         };
