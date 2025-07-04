@@ -10,11 +10,13 @@ public class xmlMap
 {
     private readonly ILogger<xmlMap> _logger;
     private IRazorLightEngine _engine;
+    private readonly RazorLightTemplatePrecompiler _precompiler;
 
-    public xmlMap(ILogger<xmlMap> logger, IRazorLightEngine engine)
+    public xmlMap(ILogger<xmlMap> logger, IRazorLightEngine engine, RazorLightTemplatePrecompiler precompiler)
     {
         _logger = logger;
         _engine = engine;
+        _precompiler = precompiler;
     }
 
     [Function("xmlMap")]
@@ -24,7 +26,7 @@ public class xmlMap
 
         return new ContentResult
         {
-            Content = await RazorLightEngineHelper.RunRazorLightXmlMapping(_engine, RazorLightTemplatePrecompiler.CompiledTemplates.First().Value),
+            Content = await RazorLightEngineHelper.RunRazorLightXmlMapping(_engine, _precompiler.CompiledTemplates.First().Value),
             ContentType = "application/xml",
             StatusCode = 200
         };

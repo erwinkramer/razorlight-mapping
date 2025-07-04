@@ -1,23 +1,19 @@
 using System.Collections.Concurrent;
-using Microsoft.Extensions.Hosting;
 using RazorLight;
 
-public class RazorLightTemplatePrecompiler : IHostedService
+public class RazorLightTemplatePrecompiler
 {
     private readonly IRazorLightEngine _engine;
-    private readonly IEnumerable<string> _templateNames;
+    public ConcurrentDictionary<string, ITemplatePage> CompiledTemplates { get; } = new();
 
-    public static ConcurrentDictionary<string, ITemplatePage> CompiledTemplates { get; } = new ConcurrentDictionary<string, ITemplatePage>();
-
-    public RazorLightTemplatePrecompiler(IRazorLightEngine engine, IEnumerable<string> templateNames)
+    public RazorLightTemplatePrecompiler(IRazorLightEngine engine)
     {
         _engine = engine;
-        _templateNames = templateNames;
     }
 
-    public async Task StartAsync(CancellationToken cancellationToken)
+    public async Task InitializeAsync(IEnumerable<string> templateNames)
     {
-        var tasks = _templateNames.Select(async name =>
+        var tasks = templateNames.Select(async name =>
         {
             var template = await _engine.CompileTemplateAsync(name);
             CompiledTemplates[name] = template;
@@ -25,6 +21,4 @@ public class RazorLightTemplatePrecompiler : IHostedService
 
         await Task.WhenAll(tasks);
     }
-
-    public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 }

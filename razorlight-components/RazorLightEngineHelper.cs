@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using RazorLight;
 using RazorLight.Extensions;
 
@@ -25,14 +26,10 @@ public static class RazorLightEngineHelper
             .UseMemoryCachingProvider();
     }
 
-    public static void AddRazorLightTemplatePrecompiler(this IServiceCollection services, IEnumerable<string> templateNames)
+    public static async Task InitializeRazorLightTemplatePrecompiler(this IHost host, IEnumerable<string> templateNames)
     {
-        services.AddHostedService(provider =>
-            new RazorLightTemplatePrecompiler(
-                provider.GetRequiredService<IRazorLightEngine>(),
-                templateNames
-            )
-        );
+        var precompiler = host.Services.GetRequiredService<RazorLightTemplatePrecompiler>();
+        await precompiler.InitializeAsync(templateNames);
     }
 
     public static async Task<string> RunRazorLightJsonMapping(IRazorLightEngine engine, ITemplatePage compiledJsonMap)

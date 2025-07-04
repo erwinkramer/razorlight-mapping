@@ -12,6 +12,10 @@ builder.Services
     .ConfigureFunctionsApplicationInsights();
 
 builder.Services.AddRazorLightEngine();
-builder.Services.AddRazorLightTemplatePrecompiler(["dynamicXmlMap.cshtml"]);
+builder.Services.AddSingleton<RazorLightTemplatePrecompiler>();
 
-builder.Build().Run();
+var app = builder.Build();
+
+await app.InitializeRazorLightTemplatePrecompiler(["dynamicXmlMap.cshtml"]);
+
+app.Run();
