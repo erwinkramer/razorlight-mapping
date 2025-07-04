@@ -23,7 +23,7 @@ Implements [razorlight-components](/razorlight-components/) and outputs mappings
 
 Implements [razorlight-components](/razorlight-components/) and is deployable to an Azure Function App. The function `xmlMap` returns the `xml`-map output via RazorLight.
 
-Precompiles the maps before the function app even runs, via the [RazorLightTemplatePrecompiler](/razorlight-components/RazorLightTemplatePrecompiler.cs).
+Precompiles the maps asynchronously, before the function app even runs, via the [RazorLightTemplatePrecompiler](/razorlight-components/RazorLightTemplatePrecompiler.cs).
 
 ## License
 
