@@ -11,13 +11,11 @@ public class xmlMap
 {
     private readonly ILogger<xmlMap> _logger;
     private IRazorLightEngine _engine;
-    private IEnumerable<ITemplatePage> _compiledMaps;
 
-    public xmlMap(ILogger<xmlMap> logger, IRazorLightEngine engine, IEnumerable<ITemplatePage> compiledTemplates)
+    public xmlMap(ILogger<xmlMap> logger, IRazorLightEngine engine)
     {
         _logger = logger;
         _engine = engine;
-        _compiledMaps = compiledTemplates;
     }
 
     [Function("xmlMap")]
@@ -27,7 +25,7 @@ public class xmlMap
 
         return new ContentResult
         {
-            Content = await Engine.RunRazorLightXmlMapping(_engine, _compiledMaps.First()),
+            Content = await Engine.RunRazorLightXmlMapping(_engine, MappingTemplateProvider.CompiledTemplates.First().Value),
             ContentType = "application/xml",
             StatusCode = 200
         };

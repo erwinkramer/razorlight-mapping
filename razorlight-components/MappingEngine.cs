@@ -20,23 +20,21 @@ public static class Engine
         return engine;
     }
 
-    public static async Task AddRazorLightEngineWithCompiledMaps(this IServiceCollection services, IEnumerable<string> templateNames)
+    public static void AddRazorLightEngine(this IServiceCollection services)
     {
         services.AddRazorLight()
             .UseFileSystemProject(TemplatesPath)
             .UseMemoryCachingProvider();
+    }
 
-        var tempProvider = services.BuildServiceProvider();
-        var engine = tempProvider.GetRequiredService<IRazorLightEngine>();
-
-        var compiledTemplates = new List<ITemplatePage>();
-        foreach (var name in templateNames)
-        {
-            var template = await engine.CompileTemplateAsync(name);
-            compiledTemplates.Add(template);
-        }
-
-        services.AddSingleton<IEnumerable<ITemplatePage>>(compiledTemplates);
+    public static void AddMappingTemplateProvider(this IServiceCollection services, IEnumerable<string> templateNames)
+    {
+        services.AddHostedService(provider =>
+            new MappingTemplateProvider(
+                provider.GetRequiredService<IRazorLightEngine>(),
+                templateNames
+            )
+        );
     }
 
     public static async Task<string> RunRazorLightJsonMapping(IRazorLightEngine engine, ITemplatePage compiledJsonMap)
