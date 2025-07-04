@@ -2,7 +2,6 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MappingEngine;
 using RazorLight;
 
 namespace razorlight_func;
@@ -25,7 +24,7 @@ public class xmlMap
 
         return new ContentResult
         {
-            Content = await Engine.RunRazorLightXmlMapping(_engine, MappingTemplateProvider.CompiledTemplates.First().Value),
+            Content = await RazorLightEngineHelper.RunRazorLightXmlMapping(_engine, RazorLightTemplatePrecompiler.CompiledTemplates.First().Value),
             ContentType = "application/xml",
             StatusCode = 200
         };

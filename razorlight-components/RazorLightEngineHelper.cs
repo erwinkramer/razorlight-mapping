@@ -4,13 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using RazorLight;
 using RazorLight.Extensions;
 
-namespace MappingEngine;
-
-public static class Engine
+public static class RazorLightEngineHelper
 {
     private static string TemplatesPath => Path.Combine(AppContext.BaseDirectory, "Templates");
 
-    public static RazorLightEngine GetEngine()
+    public static RazorLightEngine GetRazorLightEngine()
     {
         var engine = new RazorLightEngineBuilder()
             .UseFileSystemProject(TemplatesPath)
@@ -27,10 +25,10 @@ public static class Engine
             .UseMemoryCachingProvider();
     }
 
-    public static void AddMappingTemplateProvider(this IServiceCollection services, IEnumerable<string> templateNames)
+    public static void AddRazorLightTemplatePrecompiler(this IServiceCollection services, IEnumerable<string> templateNames)
     {
         services.AddHostedService(provider =>
-            new MappingTemplateProvider(
+            new RazorLightTemplatePrecompiler(
                 provider.GetRequiredService<IRazorLightEngine>(),
                 templateNames
             )

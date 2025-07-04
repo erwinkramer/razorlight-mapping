@@ -2,14 +2,14 @@ using System.Collections.Concurrent;
 using Microsoft.Extensions.Hosting;
 using RazorLight;
 
-public class MappingTemplateProvider : IHostedService
+public class RazorLightTemplatePrecompiler : IHostedService
 {
     private readonly IRazorLightEngine _engine;
     private readonly IEnumerable<string> _templateNames;
 
     public static ConcurrentDictionary<string, ITemplatePage> CompiledTemplates { get; } = new ConcurrentDictionary<string, ITemplatePage>();
 
-    public MappingTemplateProvider(IRazorLightEngine engine, IEnumerable<string> templateNames)
+    public RazorLightTemplatePrecompiler(IRazorLightEngine engine, IEnumerable<string> templateNames)
     {
         _engine = engine;
         _templateNames = templateNames;

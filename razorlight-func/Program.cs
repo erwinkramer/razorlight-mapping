@@ -1,4 +1,3 @@
-using MappingEngine;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +12,6 @@ builder.Services
     .ConfigureFunctionsApplicationInsights();
 
 builder.Services.AddRazorLightEngine();
-builder.Services.AddMappingTemplateProvider(["dynamicXmlMap.cshtml"]);
+builder.Services.AddRazorLightTemplatePrecompiler(["dynamicXmlMap.cshtml"]);
 
 builder.Build().Run();
