@@ -10,13 +10,13 @@ namespace razorlight_func;
 public class xmlMap
 {
     private readonly ILogger<xmlMap> _logger;
-    private RazorLightEngine _engine;
+    private IRazorLightEngine _engine;
     private ITemplatePage _compiledXmlMap;
 
-    public xmlMap(ILogger<xmlMap> logger)
+    public xmlMap(ILogger<xmlMap> logger, IRazorLightEngine engine)
     {
         _logger = logger;
-        _engine = Engine.GetEngine();
+        _engine = engine;
         _compiledXmlMap = _engine.CompileTemplateAsync("dynamicXmlMap.cshtml").GetAwaiter().GetResult();
     }
 

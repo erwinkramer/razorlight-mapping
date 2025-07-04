@@ -1,22 +1,33 @@
 ﻿using System.Text.Json;
 using System.Xml.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using RazorLight;
+using RazorLight.Extensions;
 
 namespace MappingEngine;
 
-public class Engine
+public static class Engine
 {
+    private static string TemplatesPath => Path.Combine(AppContext.BaseDirectory, "Templates");
+
     public static RazorLightEngine GetEngine()
     {
         var engine = new RazorLightEngineBuilder()
-            .UseFileSystemProject(Path.Combine(AppContext.BaseDirectory, "Templates"))
+            .UseFileSystemProject(TemplatesPath)
             .UseMemoryCachingProvider()
             .Build();
 
         return engine;
     }
 
-    public static async Task<string> RunRazorLightJsonMapping(RazorLightEngine engine, ITemplatePage compiledJsonMap)
+    public static void AddRazorLightEngine(this IServiceCollection services)
+    {
+        services.AddRazorLight()
+            .UseFileSystemProject(TemplatesPath)
+            .UseMemoryCachingProvider();
+    }
+
+    public static async Task<string> RunRazorLightJsonMapping(IRazorLightEngine engine, ITemplatePage compiledJsonMap)
     {
         var fileName = "input.json";
         using var jsonStream = File.OpenRead(Path.Combine(AppContext.BaseDirectory, "DataSamples", fileName));
@@ -28,7 +39,7 @@ public class Engine
         return await engine.RenderTemplateAsync(compiledJsonMap, modelDoc);
     }
 
-    public static async Task<string> RunRazorLightXmlMapping(RazorLightEngine engine, ITemplatePage compiledXmlMap)
+    public static async Task<string> RunRazorLightXmlMapping(IRazorLightEngine engine, ITemplatePage compiledXmlMap)
     {
         var fileName = "input.xml";
         var modelDoc = new ViewModelDocXml
