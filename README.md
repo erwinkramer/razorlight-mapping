@@ -3,7 +3,7 @@
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/erwinkramer/razorlight-mapping)
 
-This repo contains a reference implementation to map data with [RazorLight](https://github.com/toddams/RazorLight).
+This repo contains a reference implementation to map data with [jcamp.RazorLight](https://github.com/jcamp-code/RazorLight).
 
 Following paragraphs are a breakdown of the projects in this repo.
 
