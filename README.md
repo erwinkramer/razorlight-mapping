@@ -10,9 +10,10 @@ Following paragraphs are a breakdown of the projects in this repo.
 ## [razorlight-components](/razorlight-components/) project
 
 Core class-library that contains:
-- [Templates](/razorlight-components/Templates/) for the templates in [Razor format](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-9.0).
+
+- [Templates](/razorlight-components/Templates/) for the templates in [Razor format](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-10.0).
 - [TemplateHelper](/razorlight-components/TemplateHelper/) for .NET helpers to streamline mappings.
-- [ViewModel](/razorlight-components/ViewModel/) for the [Razor ViewModels](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-9.0#pass-data-to-views). Each `template` uses one `ViewModel`.
+- [ViewModel](/razorlight-components/ViewModel/) for the [Razor ViewModels](https://learn.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-10.0#pass-data-to-views). Each `template` uses one `ViewModel`.
 - [DataSamples](/razorlight-components/DataSamples/) as demo inputs for the provided templates.
 
 ## [razorlight-console](/razorlight-console/) project

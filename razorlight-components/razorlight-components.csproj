@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
 <ItemGroup>
-    <PackageReference Include="JsonPathway" Version="2.*" />
+    <PackageReference Include="JsonPathway" Version="3.*" />
     <PackageReference Include="RazorLight" Version="2.*" />
   </ItemGroup>
 
